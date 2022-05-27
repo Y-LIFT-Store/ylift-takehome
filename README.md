@@ -14,18 +14,8 @@ Backend: Express, (MySQL or Mongo)
 2. Dockerize the application into seperate containers using docker-compose to run the multi-container application
 
 #### Example File structure: 
-📂 project
- ┣ 📜 docker-compose.yml
- ┗ 📂 client
-    ┣ 📜 .dockerignore
-    ┣ 📜 Dockerfile
-    ┣ 📂 src
-    ┗ 📜 package.json
- ┗ 📂 server
-    ┣ 📜 .dockerignore
-    ┣ 📜 Dockerfile
-    ┣ 📂 src
-    ┗ 📜 package.json
+![Screen Shot 2022-05-27 at 10 58 53 AM](https://user-images.githubusercontent.com/100152678/170725489-28702d17-28e2-4c6b-aa02-a7803730a357.png)
+
     
 ### Initializing the Project
 Fork and clone the GitHub link to a local folder in your computer. Open the folder using VSCode or any text editor of your choice.
