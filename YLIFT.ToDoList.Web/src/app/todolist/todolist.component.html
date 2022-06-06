@@ -1,0 +1,22 @@
+<div>    
+    <div class="banner"></div>
+    <div  class="main">  
+    <div> 
+    <div class="header">To-Do List</div>   
+    <div class="todolist">
+    <ng-container *ngFor="let task of toDoTasks">      
+        <div>       
+            <span class="lbl-task">{{task.task_name}}</span>     
+            <button class="btn btn-icon icon-edit" (click)="editTask(task._id)"></button>
+            <button class="btn btn-icon icon-delete" (click)="deleteTask(task._id)"></button>
+        </div>
+      </ng-container>
+    </div>
+     <div class="new-task"> 
+         <span>New Task</span>         
+        <input class="txt-add" type="text" #txtNewTask/>        
+        <button class="btn-add" (click)="addTask(txtNewTask.value)">ADD</button>
+    </div>
+    </div>
+</div>
+</div>
