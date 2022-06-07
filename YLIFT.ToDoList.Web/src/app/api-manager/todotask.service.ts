@@ -15,16 +15,18 @@ import { GlobalConstants } from '../common/global-constants';
   
     getTasks() {      
 
-       return this.httpClient.get<any>(GlobalConstants.apiURL, this.getHeaders());    
+       return this.httpClient
+       .get<any>(GlobalConstants.apiURL)
+       .pipe(catchError(this.handleError));    //, this.getHeaders()
     }
 
     addTask(newTask: string) {
       
       //construct request body payload
-      const addPayload = {"task_name":  newTask  };
-      
+     const addPayload = {task_name:  newTask  }; 
+         
      return this.httpClient
-        .post<string>( GlobalConstants.apiURL, addPayload)
+        .post<any>(GlobalConstants.apiURL, addPayload)
         .pipe(catchError(this.handleError));     
   
     }
@@ -32,17 +34,16 @@ import { GlobalConstants } from '../common/global-constants';
     updateTask(taskId: string, taskName: string) {
       
         //construct request body payload
-        const updatePaylod = {"_id": taskId ,"task_name": taskName };
-        
+       const updatePaylod = {_id: taskId ,task_name: taskName };        
        return this.httpClient
-          .put<string>( GlobalConstants.apiURL, updatePaylod)
+          .put<any>( GlobalConstants.apiURL, updatePaylod)
           .pipe(catchError(this.handleError));    
       }
     
       deleteTask(taskId: string) {
              
        return this.httpClient
-          .delete<string>( GlobalConstants.apiURL +"?id="+taskId)
+          .delete<any>( GlobalConstants.apiURL +"?id="+taskId)
           .pipe(catchError(this.handleError));    
       }
 
@@ -57,19 +58,6 @@ import { GlobalConstants } from '../common/global-constants';
       }
       window.alert(errorMessage);
       return throwError(errorMessage);
-    }  
-
-    getHeaders() {
-        
-        const headers = new HttpHeaders({'api-key': '7hQce2uD29nfWRpw38ASCOupUSaZ74KH1ZXjodtoeQij3Gm0URv9hhmIR2BBe0Rg'
-        //, 'Access-Control-Allow-Origin':'*' 
-        //, "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-       // ,"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-      });    
-        const options = {
-          headers: headers,
-        };
-        return options;
-      }
+    }     
   }
   

@@ -1,50 +1,134 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ToDoTaskService } from '../api-manager/todotask.service';
 import { ToDoTask } from '../models/task.model';
 
+
 @Component({
   selector: 'app-todolist',
-  templateUrl: './todolist.component.html',
+  templateUrl: './todolist.component.html', 
   styleUrls: ['./todolist.component.scss']
 })
 
 export class TodolistComponent implements OnInit {
   
-  toDoTasks: Array<ToDoTask> = [];
- 
+  toDoTasks: Array<ToDoTask> = [];  
+  actionHeader: string ="New Task";
+  taskName:string = "";
+  taskId:string ="";
+  errMessage:string ="";
+
   constructor(public taskService: ToDoTaskService) {}
 
-  ngOnInit(): void {  this.getTasks();  }
+  ngOnInit(): void {  this.getTasks();  }  
   
-  addNewTask(newTask: string) {}
-
-   allItems = [
-    { task_name: 'eat', _id: "1" },
-    { task_name: 'sleep', _id:  "2" },
-    { task_name: 'play', _id:  "3" },
-    { task_name: 'laugh', _id:  "4" },
-  ];
-
   getTasks() {    
-       this.taskService.getTasks().subscribe((response) =>{ this.toDoTasks = response;  })  ;         
+
+       this.taskService.getTasks()
+       .subscribe((response) =>
+       { 
+         this.toDoTasks = response; 
+       });         
   }
 
   addTask(taskName: string)
-  {
-    this.allItems.push({task_name:taskName,_id:"5"});
-  }
+  {    
+    if(this.isExist("",taskName)){
+      return this.setMessage();
+    }
 
-  editTask(taskId: string)
-  {
-
+    this.taskService.addTask(taskName)
+    .subscribe((response) =>
+    {     
+      if(response.insertedId != undefined && response.insertedId != "")
+      {     
+        this.toDoTasks.push({_id: response.insertedId , task_name: taskName });       
+      }    
+    });     
   }
 
   deleteTask(taskId: string)
   {
-    this.allItems.forEach((value,index)=>{
-      if(value._id==taskId)  this.allItems.splice(index,1);
-    });
+    this.taskService.deleteTask(taskId)
+    .subscribe((response) =>
+    { 
+      if(response.deletedCount === 1)
+      {
+        this.toDoTasks.forEach((value, index)=>{
+          if(value._id === taskId)  
+          {
+             this.toDoTasks.splice(index, 1); 
+             return;       
+          }     
+        });
+      }
+    
+    });    
   }
+
+  editTask(taskName: string)
+  {
+    if(this.taskId !="")
+    {
+      if(this.isExist(this.taskId, taskName)){
+        return this.setMessage();
+      }
+
+      this.taskService.updateTask(this.taskId, taskName)
+      .subscribe((response) =>
+      { 
+        if(response.modifiedCount === 1)
+        {
+          this.toDoTasks.forEach((value, index)=>{
+            if(value._id === this.taskId)  
+            {
+              this.toDoTasks[index].task_name = taskName;   
+              return this.cancelEditTask();
+            }     
+          });
+        }
+      
+      });   
+  } 
+
+  }
+
+  enableEditTask(taskId: string, taskName: string)
+  {
+    this.actionHeader="Edit Task";
+    this.taskName = taskName;
+    this.taskId = taskId;
+    this.clearMessage();
+  }
+
+  cancelEditTask()
+  {
+    this.actionHeader="New Task";
+    this.taskName = "";
+    this.taskId = "";
+    this.clearMessage();
+  }
+
+  isExist(taskId: string, taskName: string): any{
+    
+    for (let i = 0; i < this.toDoTasks.length; i++) {     
+      if(this.toDoTasks[i].task_name.trim().toLowerCase() === taskName.trim().toLowerCase() 
+      && this.toDoTasks[i]._id!==taskId)  
+      {
+        return true;             
+      }        
+    }
+
+    return false; 
+  }
+
+  setMessage(){
+    this.errMessage="Task already exists!"
+  }
+
+  clearMessage(){
+    this.errMessage=""
+  }
+ 
 }
 
 

@@ -41,11 +41,10 @@
  }
 
 .btn-icon{
-    width: 50px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
-    border: 0;
-    margin: 5px;
+    border: 0;   
     background-color: transparent;    
 }
 .btn-icon:hover{
@@ -61,24 +60,21 @@
     width: 99%;   
     border: 0px transparent;
     border-bottom: 1px solid gray;   
-    margin: 10px 0px;
+    margin: 15px 0px;
+    font-size: 16px;   
 }
 
 .txt-add:focus, input:focus{
     outline: none;
 }
 
-.icon-edit{
-    width: 20px;
-    height: 20px;
+.icon-edit{   
     background-image: url(../../assets/edit.png);
     background-size: contain;
     background-repeat: no-repeat;     
 }
 
-.icon-delete{
-    width: 20px;
-    height: 20px;
+.icon-delete{  
     background-image: url(../../assets/delete.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -88,4 +84,12 @@
 .lbl-task{
     display: inline-block;  
     width: 90%;
+    height: 28px;
+}
+
+.lbl-msg{
+    float: left;  
+    width: 50%;
+    font-size: 14px;
+    color: red;
 }
