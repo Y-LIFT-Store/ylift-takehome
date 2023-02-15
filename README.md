@@ -3,7 +3,7 @@
 Create a basic to-do list application using Node and Express with your choice of a frontend framework from scratch.
 
 Recommended time limit: 4hrs 
-Due by: 06/02/22 Thursday 5pm
+Due by: 02/17/23 Friday 5pm
 
 ### Example Mock up
 <img width="814" alt="Screen Shot 2022-05-27 at 12 21 52 PM" src="https://user-images.githubusercontent.com/100152678/170739636-2bfd71a7-23eb-4e4c-9ef6-dcdf511d522a.png">
