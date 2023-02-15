@@ -17,7 +17,7 @@ Frontend: your choice of framework(Vue.js, React.js, or Angular)
 Backend: Express, (MySQL or Mongo)
 
 1. Implement CRUD operations- user should be able to add, read, update and delete todos
-2. Dockerize the application into seperate containers using docker-compose to run the multi-container application
+2. Set up MySQL - application should persist and have todos and information regarding them - ex. description, status of completed, in progress
 
 #### Example File structure: 
 ![Screen Shot 2022-05-27 at 10 58 53 AM](https://user-images.githubusercontent.com/100152678/170725489-28702d17-28e2-4c6b-aa02-a7803730a357.png)
