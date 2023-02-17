@@ -1,0 +1,26 @@
+<div>    
+    <div class="banner">Welcome to Ylift's Take Home Challenge</div>
+    <div  class="main">  
+    <div> 
+    <div class="header">To-Do List</div>   
+    <div class="todolist">
+    <ng-container *ngFor="let task of toDoTasks;">      
+        <div>       
+            <span class="lbl-task">{{task.task_name}}</span>           
+            <button class="btn btn-icon icon-edit" (click)="enableEditTask(task._id, task.task_name)"></button>
+            <button class="btn btn-icon icon-delete" (click)="deleteTask(task._id)"></button>
+        </div>
+      </ng-container>
+    </div>
+     <div class="new-task"> 
+        <span>{{actionHeader}}</span>         
+        <input #txtNewTask class="txt-add" type="text" ngModel maxlength="50" required [(ngModel)]="taskName" (keypress)="clearMessage()"/>            
+        <span class="lbl-msg">{{errMessage}}</span>         
+        <button class="btn-add" (click)="addTask(txtNewTask.value)" *ngIf='actionHeader !== "Edit Task"' [disabled]="!taskName?.trim()">ADD</button>        
+        <button class="btn-add" (click)="editTask(txtNewTask.value)" *ngIf='actionHeader === "Edit Task"'[disabled]="!taskName?.trim()">UPDATE</button>
+        <button class="btn-add" (click)="cancelEditTask()" *ngIf='actionHeader === "Edit Task"'>CANCEL</button>
+        
+    </div>
+    </div>    
+</div>
+</div>
